@@ -71,7 +71,7 @@ var magic_polaroid = {
 
 
 
-  main: function (src_img, color) {
+  main: function (src_img, color, use_tape, shadow_d) {
     if (!$(src_img).is('img')) return;  //if not image then move on
 
     color = color || "#ffffff";
@@ -88,18 +88,21 @@ var magic_polaroid = {
     var frame_w = w+w/6;
     var frame_h = h+h/2.5;
 
-    var shadow_d = 15;
+    if (shadow_d === undefined)
+      shadow_d = 15;
     var shadow_color = "rgba(0,0,0,0.5)";
 
     var tape_image = new Image();
-    tape_image.src = this.tape_image_src[Math.floor(Math.random() * this.tape_image_src.length)];
+    if (use_tape)
+      tape_image.src = this.tape_image_src[Math.floor(Math.random() * this.tape_image_src.length)];
 
     canvas.width = frame_w+shadow_d;
     canvas.height = frame_h+shadow_d+tape_image.height/2;
 
 
     context.save();
-    context.translate(0, tape_image.height/2);  //pull everything down to save some space for tape
+    if (use_tape)
+      context.translate(0, tape_image.height/2);  //pull everything down to save some space for tape
 
 
     //TODO rotate photo?
@@ -164,7 +167,8 @@ var magic_polaroid = {
 
     // draw tape
     context.restore();  //restore from previous translate
-    context.drawImage(tape_image, (frame_w-tape_image.width)/2, 0); //center it
+    if (use_tape)
+      context.drawImage(tape_image, (frame_w-tape_image.width)/2, 0); //center it
 
 
     //copy canvas back to original img
@@ -196,7 +200,12 @@ $(function() {
     $(obj).load(function() {
       if (this.please_glow != false) {
         var c = $(obj).attr("data-polaroidcolor");
-        magic_polaroid.main(obj, c);
+        var t = $(obj).attr("data-polaroidtape");
+        t = (t && t.toLowerCase() !== "false") || !t;
+        var s = $(obj).attr("data-polaroidshadow") || 15;
+        s = parseInt(s);
+
+        magic_polaroid.main(obj, c, t, s);
       }
     }).each(function() {
       if(obj.complete) $(obj).load();
@@ -219,16 +228,13 @@ $(function() {
 
     var settings = {
       color: "#ffffff",
-      tape: true
+      tape: true,
+      shadow: 15
     };
     settings = $.extend(settings, options || {});
 
-
-    //main
-    //magic_polaroid.main(this[0], settings.color, settings.alpha);
-
     this.each(function(i, obj) {
-      magic_polaroid.main(obj, settings.color, settings.tape);
+      magic_polaroid.main(obj, settings.color, settings.tape, settings.shadow);
     });
 
 

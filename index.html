@@ -84,14 +84,21 @@
             <h3 class="trn">Options</h3>
             <p><strong>Changing the color</strong> is easy: just use the <code>data-polaroidcolor</code> attribute. If not provided, the default color is white.</p>
             <pre>&lt;image src="html5.png" data-polaroid data-polaroidcolor="#ff0000" /&gt;</pre>
+
+            <p>You can choose to <strong>display or not the small piece of tape that holds the photo</strong>: use the <code>data-polaroidtape</code> attribute. If not provided, the default value is true (show tape).</p>
+            <pre>&lt;image src="html5.png" data-polaroid data-polaroidtape="false"/&gt;</pre>
+            <img src="imgs/html5.png" data-polaroid data-polaroidtape="false"/>
+
+            <p>You can also control the <strong>shadow dimensions</strong> by using the <code>data-polaroidshadow</code> attribute. If not provided, the default value is 15.</p>
+            <pre>&lt;image src="html5.png" data-polaroid data-polaroidshadow="5"/&gt;</pre>
           </div>
 
         </div>
         <div class="col-md-6">
           <h3 class="trn">JQuery API</h3>
           <p>polaroid.js is also a JQuery plugin which can be called from your code to transform any image. For instance, to insert a polaroid frame transform the image whoose id is my_image just issue the following JQuery command:</p>
-          <pre>$('#my_image').polaroid({color: "#aa00aa"})</pre>
-          <img src="imgs/html5.png" data-polaroid data-polaroidcolor="#aa00aa"/>
+          <pre>$('#my_image').polaroid({color: "#D500E0", tape: "true", shadow: 5})</pre>
+          <img src="imgs/html5.png" data-polaroid data-polaroidcolor="#D500E0" data-polaroidshadow="5"/>
 
        </div>
 
