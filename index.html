@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="polaroid.js is a jQuery plugin that transforms any image into a polaroid photo">
+    <meta name="keywords" content="javascript, jquery, polaroid, frame, photo, canvas, image">
+
+    <meta name="author" content="Manuel Fernandes">
+
+    <title>polaroid.js v1.0</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/glossifyjs.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+  <!-- NAVBAR
+================================================== -->
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only trn">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">polaroid.js</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#" class="trn">Home</a></li>
+          <li><a href="#" class="trn" data-toggle="modal" data-target="#modal_about">About</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">More components <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="http://www.openxrest.com/gloss/" title="jQuery plugin that transforms any image into a beautiful and colourful glossy sphere">glossify.js</a></li>
+              <li><a href="http://www.openxrest.com/translatejs/" title="jQuery plugin to translate text in the client side">translate.js</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>polaroid.js</h1>
+        <p class="trn" data-trn-key="subtitle_key">polaroid.js is a jQuery plugin that transforms any image into a polaroid photo.</p>
+        <img src="imgs/p01.jpg" data-polaroid data-polaroidcolor="ffffff"/>
+        <img src="imgs/p02.jpg" data-polaroid data-polaroidcolor="ffffff"/>
+
+        <p><a class="btn btn-primary btn-lg" role="button" href="http://www.codegrape.com/item/" target="_blank">Download polaroid.js v1.0</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Documentation</h2>
+      <p>Using polaroid.js couldn't be easier: just include the script and use some special attributes with any image you want to insert a polaroid frame. No need to call any script or initialize anything.</p>
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+            <h3 class="trn">Usage</h3>
+            <p><strong>Step 1</strong>: include JQuery and polaroid.js in your page</p>
+            <pre>&lt;script src="jquery.js"/&gt;
+&lt;script src="polaroid.js"/&gt;</pre>
+
+            <p><strong>Step 2</strong>: every image you want to insert a polaroid frame just include the <code>data-polaroid</code> attribute</p>
+            <pre>&lt;image src="html5.png" data-polaroid/&gt;</pre>
+            <img src="imgs/html5.png" data-polaroid/>
+          </div>
+
+          <div>
+            <h3 class="trn">Options</h3>
+            <p><strong>Changing the color</strong> is easy: just use the <code>data-polaroidcolor</code> attribute. If not provided, the default color is white.</p>
+            <pre>&lt;image src="html5.png" data-polaroid data-polaroidcolor="#ff0000" /&gt;</pre>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <h3 class="trn">JQuery API</h3>
+          <p>polaroid.js is also a JQuery plugin which can be called from your code to transform any image. For instance, to insert a polaroid frame transform the image whoose id is my_image just issue the following JQuery command:</p>
+          <pre>$('#my_image').polaroid({color: "#aa00aa"})</pre>
+          <img src="imgs/html5.png" data-polaroid data-polaroidcolor="#aa00aa"/>
+
+       </div>
+
+      </div>
+      <hr/>
+
+
+      <div>
+        <h2>More Examples</h2>
+        <h5>Images before polaroid</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <img src="imgs/l01.jpg" class="center-block"/>
+          </div>
+          <div class="col-md-4">
+            <img src="imgs/l02.jpg" class="center-block"/>
+          </div>
+          <div class="col-md-4">
+            <img src="imgs/l03.jpg" class="center-block"/>
+          </div>
+        </div>
+
+        <h5>After polaroid</h5>
+        <div class="row">
+          <div class="col-md-4">
+            <img src="imgs/l01.jpg" data-polaroid/>
+          </div>
+          <div class="col-md-4">
+            <img src="imgs/l02.jpg" data-polaroid/>
+          </div>
+          <div class="col-md-4">
+            <img src="imgs/l03.jpg" data-polaroid/>
+          </div>
+        </div>
+
+
+      </div>
+      <hr/>
+
+
+      <div>
+        <h2>Cross Platform & Safe to Use with Older Browsers</h2>
+
+        <img src="imgs/chrome.png" data-gloss width="75" data-glossalpha="0.8" alt="Chrome" title="Chrome"/>
+        <img src="imgs/firefox.png" data-gloss width="75" data-glossalpha="0.8" alt="Firefox" title="Firefox"/>
+        <img src="imgs/ie.png" data-gloss width="75" data-glossalpha="0.8" alt="Internet Explorer" title="Internet Explorer"/>
+        <img src="imgs/opera.png" data-gloss width="75" data-glossalpha="0.8" alt="Opera" title="Opera"/>
+        <img src="imgs/safari.png" data-gloss width="75" data-glossalpha="0.8" alt="Safari" title="Safari"/>
+
+        <p>
+        polaroid.js allows developers to create fantastic looking images across all modern desktop and mobile browsers. polaroid.js uses HTML5 Canvas which is compatible with the latest Android and Apple iOS (iPhone/iPad) phones and tablets.
+        </p>
+
+        <p>
+          polaroid.js is a jQuery plugin.
+        </p>
+
+        List of supported browsers:
+        <ul>
+          <li>Internet Explorer 9+</li>
+          <li>Firefox 2+</li>
+          <li>Chrome 4+</li>
+          <li>Safari 3.1+</li>
+          <li>Opera 9+</li>
+          <li>iOS Safari 3.2+</li>
+          <li>Android 3+</li>
+        </ul>
+
+        <p>polaroid.js is safe to use with older browsers. If polaroid.js is not supported by the browser then the original image will be displayed as fallback and your site will continue to work. No javascript errors will be thrown.</p>
+
+      </div>
+      <hr/>
+
+
+
+      <div>
+        <h2>Known Limitations</h2>
+        Due to javascript security reasons (same origin policy), polaroid.js will not work with images hosted on different domains. So you may have to host the images you modify.
+      </div>
+      <hr/>
+
+
+      <div>
+        <h2>License</h2>
+        polaroid.js is not free for use. polaroid.js is a commercial product and if you want to use it then you must purchase a license.
+      </div>
+      <hr/>
+
+
+      <footer>
+        <p>&copy; Manuel Fernandes 2013</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+
+
+    <!-- Modal About-->
+    <div class="modal fade" id="modal_about" tabindex="-1" role="dialog" aria-labelledby="modal_about_label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title trn" id="modal_about_label">About</h4>
+          </div>
+          <div class="modal-body">
+            <p><a href="http://www.openxrest.com/contact/" target="_blank">by Manuel Fernandes</a></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal  -->
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/polaroid.js"></script>
+
+    <script>
+      if (location.protocol == 'file:') alert("Due to javascript security reasons polaroid.js will not work from the file system. To see it working please open this file from a web server.");
+    </script>
+
+
+
+    <!--TODO copy analytics code here-->
+
+
+  </body>
+</html>
