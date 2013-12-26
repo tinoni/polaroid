@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>polaroid</title>
+
+</head>
+
+<body>
+
+  <div>
+    Select an image file:
+    <input type="file" id="fileInput" name="open image file">
+  </div>
+  <div>
+    <img id="my_img"/>
+  </div>
+  <div>
+    <a href="" id="download_img" download="image.png">download</a>
+  </div>
+
+
+
+
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="js/polaroid.js"></script>
+
+
+
+  <script>
+    $(function() {
+
+      var fileInput = document.getElementById('fileInput');
+
+
+      fileInput.addEventListener('change', function(e) {
+        var file = fileInput.files[0];
+        var imageType = /image.*/;
+
+        if (file.type.match(imageType)) {
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+
+            var done_loading = false;
+            $('#my_img').load(function() {
+              if (done_loading) return;  //just once
+              done_loading = true;
+              $('#my_img').removeAttr("width");
+              $('#my_img').removeAttr("height");
+              $('#my_img').polaroid({
+                callback: function() {
+                  $("#download_img")[0].href = $('#my_img')[0].src;
+                }
+              });
+            });
+            $('#my_img')[0].src = reader.result;
+
+
+          } //end reader.onload
+
+          reader.readAsDataURL(file);
+        } else
+          console.log("File not supported!");
+      });
+
+    });
+  </script>
+
+
+</body>
+</html>
+
+
+

@@ -2,6 +2,7 @@
  * User: mfernandes http://openxrest.com/polaroidjs/
  * Date: 19/12/13
  * Time: 19:27
+ * v1.0.1
  * minify with http://refresh-sf.com/yui/
  */
 
@@ -70,9 +71,18 @@ var magic_polaroid = {
   },
 
 
-
-  main: function (src_img, color, use_tape, shadow_d) {
+  /**
+   * main function: do all the polaroid rendering work
+   * @param src_img the image to turn into a polaroid
+   * @param color polaroid frame color. Default is white
+   * @param use_tape boolean that tells if a piece of tape should be put on top of the frame
+   * @param shadow_d shadow dimensions in pixels
+   * @param callback function to call after the work is done. Needed because this function is async
+   */
+  main: function (src_img, color, use_tape, shadow_d, callback) {
     if (!$(src_img).is('img')) return;  //if not image then move on
+
+    var that = this;
 
     color = color || "#ffffff";
 
@@ -93,96 +103,102 @@ var magic_polaroid = {
     var shadow_color = "rgba(0,0,0,0.5)";
 
     var tape_image = new Image();
-    if (use_tape)
-      tape_image.src = this.tape_image_src[Math.floor(Math.random() * this.tape_image_src.length)];
-
-    canvas.width = frame_w+shadow_d;
-    canvas.height = frame_h+shadow_d+tape_image.height/2;
 
 
-    context.save();
-    if (use_tape)
-      context.translate(0, tape_image.height/2);  //pull everything down to save some space for tape
+    var tape_loader = function() {
+      canvas.width = frame_w+shadow_d;
+      canvas.height = frame_h+shadow_d+tape_image.height/2;
 
 
-    //TODO rotate photo?
-    //context.translate( canvas.width/2, canvas.height/2 );
-    //context.rotate(5*Math.PI/180);
+      context.save();
+      if (use_tape)
+        context.translate(0, tape_image.height/2);  //pull everything down to save some space for tape
 
 
-    //shadow and color
-    context.save();
-    context.beginPath();
-    context.rect(0, 0, frame_w, frame_h);
-    context.fillStyle = color;
-    context.shadowColor = shadow_color;
-    context.shadowBlur = Math.min(shadow_d/1.5, 25);
-    context.shadowOffsetX = shadow_d/3;
-    context.shadowOffsetY = shadow_d/3;
-    context.fill();
-    context.restore();
+      //TODO rotate photo?
+      //context.translate( canvas.width/2, canvas.height/2 );
+      //context.rotate(5*Math.PI/180);
 
 
-    //polaroid frame
-    context.save();
-    context.beginPath();
-    context.rect(0, 0, frame_w, frame_h);
-
-    //inner shadow
-    var gradient_innershadow = context.createLinearGradient(0, 0, frame_w, frame_h);
-    gradient_innershadow.addColorStop(0.0, 'rgba(255,255,255,0.0)');
-    gradient_innershadow.addColorStop(1.0, 'rgba(44,44,44,0.3)');
-    //draw
-    context.fillStyle = gradient_innershadow;
-
-    var color_inverted = this.rgb_str(this.invert_color(color_rgb), 0.2);  //invert color
-    context.strokeStyle = color_inverted;
-    context.lineWidth = 0.5;
-
-    context.fill();
-    context.stroke();
-    context.restore();
+      //shadow and color
+      context.save();
+      context.beginPath();
+      context.rect(0, 0, frame_w, frame_h);
+      context.fillStyle = color;
+      context.shadowColor = shadow_color;
+      context.shadowBlur = Math.min(shadow_d/1.5, 25);
+      context.shadowOffsetX = shadow_d/3;
+      context.shadowOffsetY = shadow_d/3;
+      context.fill();
+      context.restore();
 
 
-    //draw image
-    var img_pos = (frame_w-w)/2;
-    try {
-      context.drawImage(src_img, img_pos, img_pos, w, h);
-    }
-    catch (err) {
-      return; //some problem with this image: nothing to do
-    }
+      //polaroid frame
+      context.save();
+      context.beginPath();
+      context.rect(0, 0, frame_w, frame_h);
+
+      //inner shadow
+      var gradient_innershadow = context.createLinearGradient(0, 0, frame_w, frame_h);
+      gradient_innershadow.addColorStop(0.0, 'rgba(255,255,255,0.0)');
+      gradient_innershadow.addColorStop(1.0, 'rgba(44,44,44,0.3)');
+      //draw
+      context.fillStyle = gradient_innershadow;
+
+      var color_inverted = that.rgb_str(that.invert_color(color_rgb), 0.2);  //invert color
+      context.strokeStyle = color_inverted;
+      context.lineWidth = 0.5;
+
+      context.fill();
+      context.stroke();
+      context.restore();
 
 
-    //draw internal square
-    context.save();
-    context.beginPath();
-    context.rect(img_pos, img_pos, w, h);
-    context.rect(img_pos+1, img_pos+1, w-1, h-1);
-    context.strokeStyle = color_inverted;
-    context.lineWidth = 1;
-    context.stroke();
-    context.restore();
+      //draw image
+      var img_pos = (frame_w-w)/2;
+      try {
+        context.drawImage(src_img, img_pos, img_pos, w, h);
+      }
+      catch (err) {
+        if (callback) callback();
+        return; //some problem with this image: nothing to do
+      }
 
 
-    // draw tape
-    context.restore();  //restore from previous translate
-    if (use_tape)
-      context.drawImage(tape_image, (frame_w-tape_image.width)/2, 0); //center it
+      //draw internal square
+      context.save();
+      context.beginPath();
+      context.rect(img_pos, img_pos, w, h);
+      context.rect(img_pos+1, img_pos+1, w-1, h-1);
+      context.strokeStyle = color_inverted;
+      context.lineWidth = 1;
+      context.stroke();
+      context.restore();
 
 
-    //copy canvas back to original img
-    src_img.please_glow = false;  //do not fire load event again
-    src_img.src = canvas.toDataURL("image/png");
-    //correct width and height
-    src_img.width = canvas.width;
-    src_img.height = canvas.height;
+      // draw tape
+      context.restore();  //restore from previous translate
+      if (use_tape)
+        context.drawImage(tape_image, (frame_w-tape_image.width)/2, 0); //center it
 
 
-    //$('#img_src').val(src_img.src);
+      //copy canvas back to original img
+      src_img.please_glow = false;  //do not fire load event again
+      src_img.src = canvas.toDataURL("image/png");
+      //correct width and height
+      src_img.width = canvas.width;
+      src_img.height = canvas.height;
 
-    //cleanup
-    canvas = null;
+
+      //cleanup
+      tape_image = null;
+      canvas = null;
+
+      if (callback) callback();
+    } //end tape_loader
+
+    tape_image.onload = tape_loader;
+    tape_image.src = this.tape_image_src[Math.floor(Math.random() * this.tape_image_src.length)];
 
   }    //end main
 
@@ -234,7 +250,7 @@ $(function() {
     settings = $.extend(settings, options || {});
 
     this.each(function(i, obj) {
-      magic_polaroid.main(obj, settings.color, settings.tape, settings.shadow);
+      magic_polaroid.main(obj, settings.color, settings.tape, settings.shadow, settings.callback);
     });
 
 
