@@ -3,3 +3,12 @@ body {
   padding-top: 50px;
   padding-bottom: 20px;
 }
+
+.dd_rest {
+  border:3px solid #eeeeee;
+  cursor: pointer;
+}
+
+.dd_hilite {
+  border:3px dashed #0B85A1;
+}

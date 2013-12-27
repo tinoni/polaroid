@@ -6,26 +6,35 @@
 
   <title>polaroid</title>
 
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/polaroid.css" rel="stylesheet">
+
 </head>
 
 <body>
 
-  <div>
-    Select an image file:
-    <input type="file" id="fileInput" name="open image file">
-  </div>
-  <div>
+  <div class="container">
+
+    <div class="hidden">
+      <input type="file" id="fileInput" name="open image file">
+    </div>
+    <div>
+      <button id="file_dd" type="button" class="btn btn-primary btn-lg">Drag and drop your image here or click to open image</button>
+    </div>
+
     <img id="my_img"/>
-  </div>
-  <div>
-    <a href="" id="download_img" download="image.png">download</a>
-  </div>
 
+    <div>
+      <a href="" id="download_img" download="image.png" class="hidden btn btn-default" role="button">download polaroid image</a>
+    </div>
 
+  </div>
 
 
 
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
   <script src="js/polaroid.js"></script>
 
 
@@ -33,39 +42,82 @@
   <script>
     $(function() {
 
-      var fileInput = document.getElementById('fileInput');
 
 
-      fileInput.addEventListener('change', function(e) {
-        var file = fileInput.files[0];
-        var imageType = /image.*/;
 
-        if (file.type.match(imageType)) {
-          var reader = new FileReader();
-
-          reader.onload = function(e) {
-
-            var done_loading = false;
-            $('#my_img').load(function() {
-              if (done_loading) return;  //just once
-              done_loading = true;
-              $('#my_img').removeAttr("width");
-              $('#my_img').removeAttr("height");
-              $('#my_img').polaroid({
-                callback: function() {
-                  $("#download_img")[0].href = $('#my_img')[0].src;
-                }
-              });
-            });
-            $('#my_img')[0].src = reader.result;
-
-
-          } //end reader.onload
-
-          reader.readAsDataURL(file);
-        } else
-          console.log("File not supported!");
+      var obj = $('#file_dd');
+      obj.on('dragenter', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        $(this).addClass('btn-success');
       });
+      obj.on('dragover', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+      obj.on('drop', function (e) {
+        $(this).removeClass('btn-success');
+        e.preventDefault();
+        var file = e.originalEvent.dataTransfer.files[0];
+        do_magic(file);
+      });
+      obj.on('click', function(e) {
+        $('#fileInput').trigger('click', e);
+      });
+
+
+      $(document).on('dragenter', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+      $(document).on('dragover', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        obj.removeClass('btn-success');
+      });
+      $(document).on('drop', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+
+
+      $('#fileInput').on('change', function (e) {
+        var file = this.files[0];
+        do_magic(file);
+      });
+
+
+      var do_magic = function(file) {
+        if (!file.type.match(/image.*/)) {
+          console.log("File not supported!");
+          return;
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          var done_loading = false;
+          var $my_img = $('#my_img');
+          $my_img.load(function() {
+            if (done_loading) return;  //just once
+            done_loading = true;
+            $my_img.removeAttr("width");
+            $my_img.removeAttr("height");
+            $my_img.polaroid({
+              callback: function() {
+                $("#download_img").removeClass("hidden");
+                $("#download_img").attr("href", $my_img[0].src); //download link
+              }
+            });
+          });
+          $my_img[0].src = reader.result;
+
+        } //end reader.onload
+
+        reader.readAsDataURL(file);
+
+
+      };
 
     });
   </script>
