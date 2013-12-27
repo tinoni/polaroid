@@ -3,7 +3,7 @@
  * Date: 19/12/13
  * Time: 19:27
  * v1.0.1
- * minify with http://refresh-sf.com/yui/
+ * minify with http://jscompress.com/
  */
 
 

@@ -10,5 +10,9 @@ body {
 }
 
 .dd_hilite {
-  border:3px dashed #0B85A1;
+  /*border:3px dashed #0B85A1;*/
+
+  color:#fff;
+  background-color:#5cb85c;
+  border-color:#4cae4c
 }

@@ -3,124 +3,141 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Transform any picture into a polaroid photo. It's free, easy and fast!">
+  <meta name="keywords" content="javascript, jquery, polaroid, frame, photo, canvas, image, photo converter, image converter, polaroid maker, image vintage, print polaroid, download polaroid, polaroid picture maker, polaroid picture creator">
 
-  <title>polaroid</title>
+  <meta property="og:image" content="http://www.openxrest.com/polaroidjs/imgs/fb_icon.png"/>
+
+  <meta name="author" content="Manuel Fernandes">
+
+  <title>polaroid.js v1.0.1</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/polaroid.css" rel="stylesheet">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
+  <link href="css/jquery.pnotify.default.css" media="all" rel="stylesheet" type="text/css" />
+
+  <!-- Custom styles for this template -->
+  <link href="css/polaroid.css" rel="stylesheet">
 </head>
 
 <body>
+<!-- NAVBAR
+================================================== -->
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only trn">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">polaroid.js</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class=""><a href="index.html" class="trn">Home</a></li>
+        <li class="active"><a href="polaroid.html" class="trn">Demo</a></li>
+        <li><a href="#" class="trn" data-toggle="modal" data-target="#modal_about">About</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">More components <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="http://www.openxrest.com/gloss/" title="jQuery plugin that transforms any image into a beautiful and colourful glossy sphere">glossify.js</a></li>
+            <li><a href="http://www.openxrest.com/translatejs/" title="jQuery plugin to translate text in the client side">translate.js</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
 
+
+
+<div class="jumbotron" id="file_dd">
   <div class="container">
 
-    <div class="hidden">
+    <h1>polaroid.js</h1>
+    <p class="trn" data-trn-key="subtitle_key">Transform any picture into a polaroid photo. It's free, easy and fast!</p>
+
+    <div style="position: absolute; left: -999em;">
       <input type="file" id="fileInput" name="open image file">
     </div>
     <div>
-      <button id="file_dd" type="button" class="btn btn-primary btn-lg">Drag and drop your image here or click to open image</button>
+      <button id="button_dd" type="button" class="btn btn-primary btn-lg">1. Drag and drop your picture here or click to open image</button>
+
+      <h6 class="text-muted">polaroid.js works with every image size but for best results use images with web resolution, i.e. up to 1024 pixels wide.</h6>
     </div>
 
-    <img id="my_img" class="img-responsive"/>
+    <div class="">
+      <img id="my_img" class="img-responsive" style="padding-top: 10px; padding-bottom: 5px;"/>
+    </div>
 
     <div>
-      <a href="" id="download_img" download="image.png" class="hidden btn btn-default" role="button">download polaroid image</a>
+      <a href="" id="download_img" download="image.png" class="hidden btn btn-primary" role="button">2. Download your polaroid image</a>
     </div>
 
   </div>
+</div>
+
+
+<div class="container">
+  <h2>How it works</h2>
+  <p>No server side scripting. Everything done on client side. Thanks to polaroid.js and HTML5 technologies such as <em>drag & drop</em> and <em>file API</em>.<br/>
+  That's right, there are no privacy issues as there is no uploading to our server - the images you use do not leave your local computer, that's why this is so fast.</p>
+
+  <hr/>
+
+
+  <footer>
+    <p>&copy; Manuel Fernandes 2013</p>
+  </footer>
+</div>
+
+
+<!-- Modal About-->
+<div class="modal fade" id="modal_about" tabindex="-1" role="dialog" aria-labelledby="modal_about_label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title trn" id="modal_about_label">About</h4>
+      </div>
+      <div class="modal-body">
+        <p><a href="http://www.openxrest.com/contact/" target="_blank">by Manuel Fernandes</a></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal  -->
 
 
 
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/polaroid.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="js/modernizr.custom.37345.js"></script>
+<script src="js/jquery.pnotify.min.js"></script>
 
 
-
-  <script>
-    $(function() {
-
+<script src="js/polaroid.min.js"></script>
+<script src="js/polaroidify.min.js"></script>
 
 
+<!--analytics code here-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      var obj = $('#file_dd');
-      obj.on('dragenter', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        $(this).addClass('btn-success');
-      });
-      obj.on('dragover', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-      });
-      obj.on('drop', function (e) {
-        $(this).removeClass('btn-success');
-        e.preventDefault();
-        var file = e.originalEvent.dataTransfer.files[0];
-        do_magic(file);
-      });
-      obj.on('click', function(e) {
-        $('#fileInput').trigger('click', e);
-      });
+  ga('create', 'UA-45896419-2', 'openxrest.com');
+  ga('send', 'pageview');
 
-
-      $(document).on('dragenter', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-      });
-      $(document).on('dragover', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        obj.removeClass('btn-success');
-      });
-      $(document).on('drop', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-      });
-
-
-      $('#fileInput').on('change', function (e) {
-        var file = this.files[0];
-        do_magic(file);
-      });
-
-
-      var do_magic = function(file) {
-        if (!file.type.match(/image.*/)) {
-          console.log("File not supported!");
-          return;
-        }
-
-        var reader = new FileReader();
-
-        reader.onload = function(e) {
-          var done_loading = false;
-          var $my_img = $('#my_img');
-          $my_img.load(function() {
-            if (done_loading) return;  //just once
-            done_loading = true;
-            $my_img.removeAttr("width");
-            $my_img.removeAttr("height");
-            $my_img.polaroid({
-              callback: function() {
-                $("#download_img").removeClass("hidden");
-                $("#download_img").attr("href", $my_img[0].src); //download link
-              }
-            });
-          });
-          $my_img[0].src = reader.result;
-
-        } //end reader.onload
-
-        reader.readAsDataURL(file);
-
-
-      };
-
-    });
-  </script>
+</script>
 
 
 </body>

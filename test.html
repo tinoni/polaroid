@@ -6,9 +6,17 @@
 
   <title>polaroid</title>
 
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
 </head>
 
 <body>
+
+  <a href="#" id="bt">bt</a>
+
+  <div style="position: absolute; left: -999em;">
+    <input type="file" id="fileInput" name="open image file">
+  </div>
 
   <img src="imgs/p01.jpg" data-polaroid width="400"/>
 
@@ -22,6 +30,21 @@
 
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="js/polaroid.js"></script>
+
+
+  <script>
+    $(function() {
+
+
+
+      $("#bt").on("click", function() {
+        $('#fileInput').trigger('click');
+      });
+
+
+    });
+  </script>
+
 </body>
 </html>
 

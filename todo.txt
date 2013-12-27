@@ -34,8 +34,3 @@
   http://www.designkindle.com/2010/08/31/peeling-stickers/
   http://pixelsdaily.com/resources/photoshop/psds/psd-price-sticker-buttons/
 
-
-
-
-
-  "due to the same origin policy, JavaScript is only allowed to read images that originate from the same domain as the script reading them, so you may have to host the images you modify."
