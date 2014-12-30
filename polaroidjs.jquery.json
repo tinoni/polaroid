@@ -1,0 +1,36 @@
+{
+  "name": "polaroidjs",
+  "title": "polaroid.js",
+  "description": "A jQuery plugin that transforms any image into a polaroid photo.",
+  "keywords": [
+    "image",
+    "polaroid",
+    "image",
+    "effect",
+    "canvas"
+  ],
+  "version": "1.0.1",
+  "author": {
+    "name": "Manuel Fernandes",
+    "url": "http://www.openxrest.com/contact/"
+  },
+  "maintainers": [
+    {
+      "name": "Manuel Fernandes",
+      "email": "mfernandes777@gmail.com",
+      "url": "http://www.openxrest.com/contact/"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/tinoni/translate.js/blob/master/LICENSE"
+    }
+  ],
+  "homepage": "http://www.openxrest.com/polaroidjs/",
+  "docs": "http://www.openxrest.com/polaroidjs/",
+  "download": "https://bitbucket.org/tinoni/polaroid",
+  "dependencies": {
+    "jquery": ">=1.5"
+  }
+}
