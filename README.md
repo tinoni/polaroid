@@ -4,7 +4,7 @@ polaroid.js
 A jQuery plugin that transforms any image into a polaroid photo.
 
 ## Home and demo
-View a live [demo](https://tinoni.github.com/polaroid).
+View a live [demo](https://tinoni.github.io/polaroid).
 
 ## Usage
 Step 1: include JQuery and polaroid.js in your page
